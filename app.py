@@ -41,7 +41,7 @@ if "current_ticket" not in st.session_state:
     
 # ---------- Persistent Approval History ----------
 st.divider()
-st.subheader("ðŸ§¾ Human Approval History")
+st.subheader(" 🧾 Human Approval History")
 
 approval_history = load_approval_history()
 
@@ -254,7 +254,7 @@ def clean_customer_reply(reply):
 
 # ---------- Expected Team Rules ----------
 # ---------- Header ----------
-st.title("ðŸŽ§ SmartSupport AI")
+st.title("🎧 SmartSupport AI")
 st.caption("AI-powered Customer Support Ticket Dashboard")
 
 # ---------- Dashboard Analytics ----------
@@ -278,7 +278,7 @@ pending_tickets = sum(
 # ---------- Historical Ticket Audit ----------
 from database import audit_ticket_history
 
-st.subheader("ðŸ”Ž Historical Ticket Audit")
+st.subheader("🔎 Historical Ticket Audit")
 
 audit_results = audit_ticket_history()
 
@@ -356,7 +356,7 @@ for ticket in all_audit_tickets:
 audit_df = pd.DataFrame(audit_report_rows)
 
 st.download_button(
-    label="ðŸ“¥ Download Audit Report (CSV)",
+    label="📥 Download Audit Report (CSV)",
     data=audit_df.to_csv(index=False, encoding="utf-8-sig"),
     file_name="smartsupport_audit_report.csv",
     mime="text/csv",
@@ -369,7 +369,7 @@ if audit_results:
     )
 
     for item in audit_results:
-        with st.expander(f"Ticket #{item['id']} â€” Review required"):
+        with st.expander(f"Ticket #{item['id']} — Review required"):
             st.write("**Complaint:**", item["complaint"])
             st.write("**Current Category:**", item["current_category"])
             st.write("**Expected Category:**", item["expected_category"])
@@ -381,7 +381,7 @@ else:
     st.success("No obvious category, team, or priority issues found.")
 
 
-st.subheader("ðŸ“Š Dashboard Overview")
+st.subheader("📊 Dashboard Overview")
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -429,7 +429,7 @@ st.divider()
 
 
 # ---------- Ticket Analytics Charts ----------
-st.subheader("ðŸ“ˆ Ticket Analytics")
+st.subheader(" 📈 Ticket Analytics")
 
 status_counts = {
     "Approved": approved_tickets,
@@ -467,7 +467,7 @@ st.divider()
 
 # ---------- Sidebar Metrics ----------
 with st.sidebar:
-    st.header("ðŸ“Š Ticket Overview")
+    st.header("📊 Ticket Overview")
     tickets = st.session_state.tickets
 
     st.metric("Total Tickets", len(tickets))
@@ -487,7 +487,7 @@ with st.sidebar:
 
 
 # ---------- Complaint Input ----------
-st.subheader("ðŸ“ Customer Complaint")
+st.subheader("📝 Customer Complaint")
 ticket_text = st.text_area(
     "Enter the customer's complaint:",
     placeholder="Example: I paid twice for my order and need a refund urgently.",
@@ -495,7 +495,7 @@ ticket_text = st.text_area(
     key="complaint_input",
 )
 
-if st.button("ðŸ” Analyze Ticket", type="primary"):
+if st.button("🔍 Analyze Ticket", type="primary"):
     if not ticket_text.strip():
         st.warning("Please enter a customer complaint.")
     else:
@@ -599,8 +599,8 @@ Customer reply rules:
             suggested_reply = extract_field(analysis, "Suggested Customer Reply")
             cleaned_reply = clean_customer_reply(suggested_reply)
 
-            st.write("DEBUG â€” Extracted reply:", repr(suggested_reply))
-            st.write("DEBUG â€” Cleaned reply:", repr(cleaned_reply))
+            st.write("DEBUG — Extracted reply:", repr(suggested_reply))
+            st.write("DEBUG — Cleaned reply:", repr(cleaned_reply))
 
             if suggested_reply != "Not provided":
                 analysis = re.sub(
@@ -646,7 +646,7 @@ current = next(
 
 if current:
     st.divider()
-    st.subheader(f"ðŸ“‹ Ticket #{current['id']} Analysis")
+    st.subheader(f"📋 Ticket #{current['id']} Analysis")
 
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -668,11 +668,11 @@ if current:
         st.markdown(current.get("analysis", "No analysis available."))
 
 
-    st.subheader("ðŸ‘¤ Human Approval")
+    st.subheader("👤 Human Approval")
     st.write(f"Current status: **{current.get('status', 'Needs Review')}**")
     
 if current.get("status") in ["Pending", "Needs Review"]:
-    st.subheader("ðŸ‘¤ Human Approval")
+    st.subheader("👤 Human Approval")
 
     reviewer_notes = st.text_area(
         "Reviewer Notes",
@@ -685,14 +685,14 @@ if current.get("status") in ["Pending", "Needs Review"]:
     with approve_col:
         if current.get("issues"):
             st.button(
-                "âœ… Approve",
+                " Approve",
                 disabled=True,
                 use_container_width=True,
                 key=f"approve_{current['id']}",
             )
             st.caption("Resolve validation issues before approval.")
         elif st.button(
-            "âœ… Approve",
+            "✅ Approve",
             use_container_width=True,
             key=f"approve_{current['id']}",
         ):
@@ -715,7 +715,7 @@ if current.get("status") in ["Pending", "Needs Review"]:
 
     with reject_col:
         if st.button(
-            "âŒ Reject",
+            "❌ Reject",
             use_container_width=True,
             key=f"reject_{current['id']}",
         ):
@@ -753,7 +753,7 @@ if current:
         )
     )
 
-    st.subheader("ðŸ’¬ Suggested Customer Reply")
+    st.subheader("💬 Suggested Customer Reply")
 
     if reply and reply != "Not provided":
         st.code(reply)
@@ -764,14 +764,14 @@ if current:
 
 # ---------- Ticket History ----------
 st.divider()
-st.subheader("ðŸ—‚ï¸ Ticket History")
+st.subheader("🗂️ Ticket History")
 
 tickets = list(reversed(st.session_state.tickets))
 
    
 # ---------- Ticket History ----------
 st.divider()
-st.subheader("ðŸ—‚ï¸ Ticket History")
+st.subheader("🗂️ Ticket History")
 
 tickets = list(reversed(st.session_state.tickets))
 
@@ -802,7 +802,7 @@ if tickets:
     csv_data = pd.DataFrame(export_data).to_csv(index=False)
 
     st.download_button(
-        label="ðŸ“¥ Export Ticket History (CSV)",
+        label="📥 Export Ticket History (CSV)",
         data=csv_data,
         file_name="smartsupport_ticket_history.csv",
         mime="text/csv",
@@ -811,7 +811,7 @@ if tickets:
 
     # Search
     search_text = st.text_input(
-        "ðŸ” Search tickets",
+        "🔍 Search tickets",
         placeholder="Search by ticket ID or complaint...",
         key="history_search",
     )
@@ -901,8 +901,8 @@ if filtered_tickets:
             )
 
             with st.expander(
-                f"Ticket #{item.get('id', '?')} â€” "
-                f"{display_category} â€” {status}"
+                f"Ticket #{item.get('id', '?')} — "
+                f"{display_category} — {status}"
             ):
                 st.write("**Complaint:**", item.get("complaint", "Not provided"))
                 st.write("**AI Category:**", category)
@@ -920,7 +920,7 @@ else:
 
 
 # ---------- Export Tickets to CSV ----------
-st.subheader("ðŸ“¥ Export Ticket Records")
+st.subheader("📥 Export Ticket Records")
 
 if tickets:
     export_df = pd.DataFrame(tickets)
@@ -931,7 +931,7 @@ if tickets:
     )
 
     st.download_button(
-        label="ðŸ“¥ Download Tickets as CSV",
+        label="📥 Download Tickets as CSV",
         data=csv_data,
         file_name="smartsupport_tickets.csv",
         mime="text/csv",
