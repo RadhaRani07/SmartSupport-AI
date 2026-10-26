@@ -1,6 +1,5 @@
 import unittest
-
-from app import expected_team, validate_analysis
+from routing import expected_team, validate_analysis
 
 
 class TestSmartSupportRouting(unittest.TestCase):
